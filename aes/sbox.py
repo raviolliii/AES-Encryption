@@ -1,12 +1,18 @@
 def uint(x):
+	# casts x to unsigned int (1 byte)
 	return x & 0xff
 
 def rotleft(x, shift):
+	# rotates bits left in a 1 byte int
 	left = uint(x << shift)
 	right = x >> (8 - shift)
 	return left | right
 
 def generate_sbox():
+	# generates the Rijndael Substitution Box
+	# the s-box can be hard coded in here,
+	# but there is an algorithm to generate it,
+	# and I didn't want to type out the whole box
 	sbox = [0] * 256
 	p = 1
 	q = 1
@@ -24,6 +30,10 @@ def generate_sbox():
 	sbox[0] = 0x63
 
 	def sbox_value(input_hex):
+		# returns the value in the s-box given
+		# the input hex (most significant nibble
+		# is the row, least significant is the 
+		# column)
 		val = int(input_hex, 16)
 		ln = val & 0x0f
 		hn = val >> 4
